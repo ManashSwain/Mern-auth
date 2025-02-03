@@ -35,7 +35,7 @@ export const registeruser = async(req,res)=>{
     return res.status(201).json({success : true , message : "Registered successfully"})
    }catch(err){
     console.error("Error occured : " , err);
-    res.status(500).json({success : false , message : "Error occured during registration process"})
+     return res.status(500).json({success : false , message : "Error occured during registration process"})
    }
    
 }
@@ -59,7 +59,7 @@ export const loginUser = async (req,res)=>{
        const isMatch = await bcrypt.compare( password ,user.password );
 
           if(!isMatch){
-            res.status(401).json({success : false , message : "Password is not matching"});
+             return res.status(401).json({success : false , message : "Password is not matching"});
           }
 
          const token = jwt.sign({id : user._id} , process.env.JWT_SECRET , {expiresIn : '7d'});
@@ -71,11 +71,11 @@ export const loginUser = async (req,res)=>{
             maxAge :  7 *24 * 60* 60*1000
          })
 
-         res.status(200).json({success : true , message : "Loggedin successfully"})
+         return res.status(200).json({success : true , message : "Loggedin successfully"})
     }
     catch(err){
     console.error("Error Occured : " , err);
-    res.status(500).json({success : false , message : "Error occured during Login process"});
+     return res.status(500).json({success : false , message : "Error occured during Login process"});
     }
   }
 
@@ -92,7 +92,7 @@ export const logoutUser = async (req, res)=>{
    }
    catch(err){
     console.error("Error occured : " , err);
-    res.status(500).json({success : false , message : "Error Occured"})
+     return res.status(500).json({success : false , message : "Error Occured"})
    }
 }
   
