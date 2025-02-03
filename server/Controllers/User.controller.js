@@ -32,7 +32,7 @@ export const registeruser = async(req,res)=>{
     maxAge : 7 *24 * 60* 60*1000
    });
 
-   res.status(201).json({success : true , message : "Registered successfully"})
+    return res.status(201).json({success : true , message : "Registered successfully"})
    }catch(err){
     console.error("Error occured : " , err);
     res.status(500).json({success : false , message : "Error occured during registration process"})
@@ -75,7 +75,24 @@ export const loginUser = async (req,res)=>{
     }
     catch(err){
     console.error("Error Occured : " , err);
-    res.status().json({success : false , message : "Error occured during Login process"});
+    res.status(500).json({success : false , message : "Error occured during Login process"});
     }
   }
+
+//   logout functionality 
+
+export const logoutUser = async (req, res)=>{
+   try {
+    res.clearCookie('token' , {
+        httpOnly : true,
+        secure : process.env.NODE_ENV === "production" ,
+        sameSite : process.env.NODE_ENV === "production" ? 'none' : "strict",  
+    });
+    return res.status(200).json({success : true , message : "User Loggedout successfully"});
+   }
+   catch(err){
+    console.error("Error occured : " , err);
+    res.status(500).json({success : false , message : "Error Occured"})
+   }
+}
   
