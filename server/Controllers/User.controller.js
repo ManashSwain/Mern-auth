@@ -1,6 +1,7 @@
 import userModel from "../Models/User.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import transporter from "../utils/nodemailer.js";
 
 
 // User Registration 
@@ -31,6 +32,18 @@ export const registeruser = async(req,res)=>{
     sameSite : process.env.NODE_ENV === "production" ? 'none' : "strict",
     maxAge : 7 *24 * 60* 60*1000
    });
+
+//    sending welcome email 
+
+ const mailOptions = {
+    // from : process.env.SENDER_EMAIL,
+    from: '"Manash Swain 👻" <willis.abbott@ethereal.email>',
+    to : email,
+    subject : "Welcome to mern-auth",
+    text: `Welcome to our website . Your account has been created with email Id : ${email}`,
+ }
+
+ await transporter.sendMail(mailOptions);
 
     return res.status(201).json({success : true , message : "Registered successfully"})
    }catch(err){
