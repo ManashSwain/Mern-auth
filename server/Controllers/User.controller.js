@@ -109,4 +109,15 @@ export const logoutUser = async (req, res)=>{
      return res.status(500).json({success : false , message : "Error Occured"})
    }
 }
+
+// send verification otp 
+
+export const  sendVerificationOtp = async(req,res)=>{
+    try{
+
+    }
+    catch(err){
+        console.error("Error Occured : " , err)
+    }
+}
   
