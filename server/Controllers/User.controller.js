@@ -36,16 +36,17 @@ export const registeruser = async(req,res)=>{
 //    sending welcome email 
 
  const mailOptions = {
-    // from : process.env.SENDER_EMAIL,
-    from: '"Manash Swain 👻" <willis.abbott@ethereal.email>',
-    to : email,
-    subject : "Welcome to mern-auth",
-    text: `Welcome to our website . Your account has been created with email Id : ${email}`,
- }
+    from: '"Joe" example@brevo.com',
+    to: email , 
+    subject: "Welcome to mern-auth",
+    text: `Welcome to our application .You have registerd with email : ${email}`,
+ };
 
- await transporter.sendMail(mailOptions);
+    await transporter.sendMail(mailOptions);
+      
 
-    return res.status(201).json({success : true , message : "Registered successfully"})
+    return res.status(201).json({success : true , message : "Registered successfully"});
+
    }catch(err){
     console.error("Error occured : " , err);
      return res.status(500).json({success : false , message : "Error occured during registration process"})
