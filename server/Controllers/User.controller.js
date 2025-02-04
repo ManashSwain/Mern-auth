@@ -35,14 +35,32 @@ export const registeruser = async(req,res)=>{
 
 //    sending welcome email 
 
- const mailOptions = {
-    from: '"Joe" example@brevo.com',
-    to: email , 
-    subject: "Welcome to mern-auth",
-    text: `Welcome to our application .You have registerd with email : ${email}`,
- };
+//  const mailOptions = {
+//     from: '"Manash👻" <maddison53@ethereal.email>',
+//     to: email , 
+//     subject: "Welcome to mern-auth",
+//     text: `Welcome to our application .You have registerd with email : ${email}`,
+//  };
 
-    await transporter.sendMail(mailOptions);
+//     await transporter.sendMail(mailOptions);
+
+// Function to send the welcome email
+const sendWelcomeEmail = async (email) => {
+    const mailOptions = {
+      from: '"Manash👻" <maddison53@ethereal.email>', 
+      to: email,  
+      subject: "Welcome to MERN-Auth",  
+      text: `Welcome to our application. You have registered with the email: ${email}`,  
+    };
+  
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log("Email sent successfully: " + info.response); 
+    } catch (error) {
+      console.error("Error sending email: ", error);
+    }
+  };
+  sendWelcomeEmail(email);
       
 
     return res.status(201).json({success : true , message : "Registered successfully"});
@@ -110,14 +128,15 @@ export const logoutUser = async (req, res)=>{
    }
 }
 
-// send verification otp 
+// send verification otp to users email 
 
 export const  sendVerificationOtp = async(req,res)=>{
     try{
-
+      
     }
     catch(err){
-        console.error("Error Occured : " , err)
+        console.error("Error Occured : " , err);
+        return res.status(500).json({success : false , message : "Error Occured"})
     }
 }
   
