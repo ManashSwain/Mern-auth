@@ -132,6 +132,11 @@ export const logoutUser = async (req, res)=>{
 
 export const  sendVerificationOtp = async(req,res)=>{
     try{
+      const {userId} = req.body ;
+      const user = await userModel.findById(userId);
+      if(user.isEmailVerified){
+        return res.status(200).json({success : false , message : "Account already verified!"});
+      }
       
     }
     catch(err){
